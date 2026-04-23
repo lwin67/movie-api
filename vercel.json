@@ -1,0 +1,7 @@
+{
+  "routes": [
+    { "src": "/api/login", "dest": "/api/login.js" },
+    { "src": "/api/profile", "dest": "/api/profile.js" },
+    { "src": "/api/movies", "dest": "/api/movies.js" }
+  ]
+}
