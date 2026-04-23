@@ -1,20 +1,16 @@
 const pool = require('./db');
 
 module.exports = async (req, res) => {
-  const { id } = req.query;
+  try {
+    const [rows] = await pool.execute('SELECT * FROM movies');
 
-  const [movie] = await pool.execute(
-    'SELECT * FROM movies WHERE id=?',
-    [id]
-  );
+    res.status(200).json(rows);
+  } catch (error) {
+    console.log("MOVIES ERROR:", error);
 
-  const [comments] = await pool.execute(
-    'SELECT * FROM comments WHERE movie_id=?',
-    [id]
-  );
-
-  res.json({
-    movie: movie[0],
-    comments: comments
-  });
+    res.status(500).json({
+      success: false,
+      message: "Server error"
+    });
+  }
 };
